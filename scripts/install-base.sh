@@ -27,6 +27,7 @@ apt-get install -y --no-install-recommends \
     localepurge \
     lsb-release \
     make \
+    nfs-common \
     qemu-guest-agent \
     vim \
     wget
