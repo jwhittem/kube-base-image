@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# setup docker repo
+install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+chmod a+r /etc/apt/keyrings/docker.gpg
+echo \
+  "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/debian \
+  "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
+  tee /etc/apt/sources.list.d/docker.list > /dev/null
+apt-get update
+
+# install containerd
+apt-get install -y containerd.io
+
+# install CNI-plugins
+mkdir -p /opt/cni/bin
+wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
+rm cni-plugins-linux-amd64-v1.3.0.tgz 
+
+## set up bridge fwd
+install -m 644 /home/debian/k8s-dev-lab/files/k8s-modules.conf /etc/modules-load.d/k8s-modules.conf
+modprobe overlay
+modprobe br_netfilter
+
+# ipv4.ip_forward 
+install -m 644 /home/debian/k8s-dev-lab/files/k8s-sysctl.conf /etc/sysctl.d/k8s-sysctl.conf 
+sysctl --system
+
+systemctl stop containerd
+install -m 644 /home/debian/k8s-dev-lab/files/config.toml /etc/containerd/config.toml 
