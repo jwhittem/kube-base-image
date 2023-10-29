@@ -20,13 +20,9 @@ tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 rm cni-plugins-linux-amd64-v1.3.0.tgz 
 
 ## set up bridge fwd
-install -m 644 /home/debian/k8s-dev-lab/files/k8s-modules.conf /etc/modules-load.d/k8s-modules.conf
-modprobe overlay
-modprobe br_netfilter
-
+install -m 644 /home/debian/kube-base-image/files/k8s-modules.conf /etc/modules-load.d/k8s-modules.conf
 # ipv4.ip_forward 
-install -m 644 /home/debian/k8s-dev-lab/files/k8s-sysctl.conf /etc/sysctl.d/k8s-sysctl.conf 
-sysctl --system
+install -m 644 /home/debian/kube-base-image/files/k8s-sysctl.conf /etc/sysctl.d/k8s-sysctl.conf 
 
 systemctl stop containerd
-install -m 644 /home/debian/k8s-dev-lab/files/config.toml /etc/containerd/config.toml 
+install -m 644 /home/debian/kube-base-image/files/config.toml /etc/containerd/config.toml 

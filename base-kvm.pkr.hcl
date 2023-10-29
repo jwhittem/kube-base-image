@@ -25,26 +25,26 @@ build {
 
   provisioner "shell" {
     inline = [
-      "mkdir -p /home/debian/k8s-dev-lab/scripts /home/debian/k8s-dev-lab/files"
+      "mkdir -p /home/debian/kube-base-image/scripts /home/debian/kube-base-image/files"
     ]
   }
 
   provisioner "file" {
     source = "./scripts/"
-    destination = "/home/debian/k8s-dev-lab/scripts/"
+    destination = "/home/debian/kube-base-image/scripts/"
   }
 
   provisioner "file" {
     source = "./files/"
-    destination = "/home/debian/k8s-dev-lab/files/"
+    destination = "/home/debian/kube-base-image/files/"
   }
 
   provisioner "shell" {
     inline = [
-      "sh -cx 'sudo bash /home/debian/k8s-dev-lab/scripts/install-base.sh'",
-      "sh -cx 'sudo bash /home/debian/k8s-dev-lab/scripts/install-runtime.sh'",
-      "sh -cx 'sudo bash /home/debian/k8s-dev-lab/scripts/install-k8s-utils.sh'",
-      "sh -cx 'sudo bash /home/debian/k8s-dev-lab/scripts/post-install.sh'"
+      "sh -cx 'sudo bash /home/debian/kube-base-image/scripts/install-base.sh'",
+      "sh -cx 'sudo bash /home/debian/kube-base-image/scripts/install-runtime.sh'",
+      "sh -cx 'sudo bash /home/debian/kube-base-image/scripts/install-k8s-utils.sh'",
+      "sh -cx 'sudo bash /home/debian/kube-base-image/scripts/post-install.sh'"
       ]
   }
 }

@@ -1,19 +1,24 @@
 # kube-base-image
 
-This repository is for building base images for a kubernetes home lab.  Available virtual machine outputs are:
+This was created to make building VM base images for Kubernetes easy.
+
+Available virtual machine outputs are:
 
 - KVM
 
 ## base image build
 
-Building a base image for kubernetes seems like it should be simpler, there are a few tunable items that are provided by running the packer build here.  Some of them are quality of life items, some are k8s requirements.
+Overview of the image configuration:
 
 - Swap disabled (node workload performance across a cluster would be unpredictable)
 - Configures compatible network settings
 - Installs [cloud-init] for run once tasks, and for future automation.
-- Resets host SSH keys.
+- Resets host SSH keys
 - Creates new machine id, and randomizes hostname (both need to be unique in k8s)
 - Displays ip address at login screen
+- Enables serial console access
+
+*Default username / password is 'debian' this is something you'll want to change once the machines are setup.*
 
 The distribution is the net install of Debian.  The first stage builds a minimal install, and then the kubernetes components are added by running the [scripts](/scripts/)
 

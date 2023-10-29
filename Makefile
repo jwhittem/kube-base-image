@@ -1,6 +1,4 @@
 
-build: init
-	packer build base.pkr.hcl
-
-init:
-	packer init -upgrade base.pkr.hcl 
+build-kvm:
+	packer init -upgrade base-kvm.pkr.hcl
+	packer build base-kvm.pkr.hcl	 

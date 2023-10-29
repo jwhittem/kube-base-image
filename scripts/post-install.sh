@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Remove all but the lastest kernel
 apt-get autoremove --yes --purge $(dpkg -l "linux-image*" | grep "^ii" | grep -v linux-image-amd64 | head -n -1 | cut -d " " -f 3)
 
-# Finally, cleanup all the things
-apt-get install --yes deborphan # Let's try to remove some more
+apt-get install --yes deborphan
 apt-get autoremove \
   console-setup \
   $(deborphan) \
@@ -32,9 +30,6 @@ rm -vf \
    ~/.bash_history \
    ${SUDO_USER}/.bash_history 
    
-# need uniq ids
 truncate -s 0 /etc/machine-id
-
-rm -rf /home/debian/k8s-dev-lab
-
+rm -rf /home/debian/kube-base-image
 fstrim --all --verbose

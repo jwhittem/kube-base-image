@@ -1,6 +1,6 @@
 #!/bin/bash
 
-RAND=$(openssl rand -hex 2)
+RAND=$(openssl rand -hex 3)
 HOSTNAME=k8s-node-$RAND
 
 echo $HOSTNAME > /etc/hostname
