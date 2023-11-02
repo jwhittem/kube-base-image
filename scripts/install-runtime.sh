@@ -15,7 +15,7 @@ apt-get install -y containerd.io
 
 # install CNI-plugins
 mkdir -p /opt/cni/bin
-wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+curl -fsSL https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz --output cni-plugins-linux-amd64-v1.3.0.tgz
 tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
 rm cni-plugins-linux-amd64-v1.3.0.tgz 
 

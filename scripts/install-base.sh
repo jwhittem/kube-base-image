@@ -15,15 +15,12 @@ apt-get install -y --no-install-recommends \
     cloud-guest-utils \
     cloud-init \
     curl \
-    git \
     gnupg \
     localepurge \
     lsb-release \
-    make \
     nfs-common \
     qemu-guest-agent \
-    vim \
-    wget
+    vim
 
 mkdir -p /var/lib/cloud/scripts/per-instance
 mkdir -p /etc/systemd/system/getty@tty1.service.d/
