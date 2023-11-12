@@ -28,6 +28,7 @@ install -m 644 /home/debian/kube-base-image/files/issue /etc/issue
 install -m 755 -D /home/debian/kube-base-image/files/run-once.sh /var/lib/cloud/scripts/per-instance/run-once.sh
 install -m 755 -D /home/debian/kube-base-image/files/on-boot.sh /var/lib/cloud/scripts/per-boot/on-boot.sh
 install -m 644 -D /home/debian/kube-base-image/files/no-clear.conf /etc/systemd/system/getty@tty1.service.d/no-clear.conf
+install -m 644  /home/debian/kube-base-image/files/vimrc /root/.vimrc
 
 if test -f /home/debian/kube-base-image/files/authorized_keys; then
     install -m 644 -D -o debian -g debian /home/debian/kube-base-image/files/authorized_keys /home/debian/.ssh/authorized_keys
