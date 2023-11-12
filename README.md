@@ -14,6 +14,7 @@ Overview of the image configuration:
 - Configures compatible network settings
 - Installs [cloud-init] for run once tasks, and for future automation.
 - Resets host SSH keys
+- Allows user provided `authorized_keys` file applied to user `debian` by placing it in `files/`
 - Creates new machine id, and randomizes hostname (both need to be unique in k8s)
 - Displays ip address at login screen
 - Enables serial console access
