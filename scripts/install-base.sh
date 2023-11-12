@@ -31,6 +31,10 @@ install -m 644 /home/debian/kube-base-image/files/issue /etc/issue
 install -m 755 /home/debian/kube-base-image/files/run-once.sh /var/lib/cloud/scripts/per-instance/run-once.sh
 install -m 644 /home/debian/kube-base-image/files/no-clear.conf /etc/systemd/system/getty@tty1.service.d/no-clear.conf
 
+if test -f /home/debian/kube-base-image/files/authorized_keys; then
+    install -m 644 /home/debian/kube-base-image/files/authorized_keys /home/debian/.ssh/authorized_keys
+fi
+
 systemctl add-wants multi-user.target cloud-init.target
 systemctl enable qemu-guest-agent
 systemctl enable --now serial-getty@ttyS0.service
