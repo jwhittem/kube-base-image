@@ -22,17 +22,15 @@ apt-get install -y --no-install-recommends \
     qemu-guest-agent \
     vim
 
-mkdir -p /var/lib/cloud/scripts/per-instance
-mkdir -p /etc/systemd/system/getty@tty1.service.d/
-
 install -m 644 /home/debian/kube-base-image/files/interfaces /etc/network/interfaces
 install -m 644 /home/debian/kube-base-image/files/1_debian_config.cfg /etc/cloud/cloud.cfg.d/1_debian_config.cfg
 install -m 644 /home/debian/kube-base-image/files/issue /etc/issue
-install -m 755 /home/debian/kube-base-image/files/run-once.sh /var/lib/cloud/scripts/per-instance/run-once.sh
-install -m 644 /home/debian/kube-base-image/files/no-clear.conf /etc/systemd/system/getty@tty1.service.d/no-clear.conf
+install -m 755 -D /home/debian/kube-base-image/files/run-once.sh /var/lib/cloud/scripts/per-instance/run-once.sh
+install -m 755 -D /home/debian/kube-base-image/files/on-boot.sh /var/lib/cloud/scripts/per-boot/on-boot.sh
+install -m 644 -D /home/debian/kube-base-image/files/no-clear.conf /etc/systemd/system/getty@tty1.service.d/no-clear.conf
 
 if test -f /home/debian/kube-base-image/files/authorized_keys; then
-    install -m 644 /home/debian/kube-base-image/files/authorized_keys /home/debian/.ssh/authorized_keys
+    install -m 644 -D -o debian -g debian /home/debian/kube-base-image/files/authorized_keys /home/debian/.ssh/authorized_keys
 fi
 
 systemctl add-wants multi-user.target cloud-init.target
