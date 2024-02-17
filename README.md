@@ -6,18 +6,24 @@ Available virtual machine outputs are:
 
 - KVM
 
+## building
+
+You will need KVM, and packer installed to build.  Simply run `make` to build the image.  Image will be in output directory.
+
 ## base image build
 
 Overview of the image configuration:
 
 - Swap disabled (node workload performance across a cluster would be unpredictable)
 - Configures compatible network settings
-- Installs [cloud-init] for run once tasks, and for future automation.
+- Installs [cloud-init] for run once tasks, and for future automation
 - Resets host SSH keys
-- Allows user provided `authorized_keys` file applied to user `debian` by placing it in `files/`
+- Allows user provided `authorized_keys` file applied to user `debian` by placing it in `files/` prior to build
 - Creates new machine id, and randomizes hostname (both need to be unique in k8s)
 - Displays ip address at login screen
 - Enables serial console access
+
+See [VERSIONS](scripts/VERSIONS) for what component versions are part of the image build.
 
 *Default username / password is 'debian' this is something you'll want to change once the machines are setup.*
 

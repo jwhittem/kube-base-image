@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# setup docker repo
+source /home/debian/kube-base-image/scripts/VERSIONS
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/debian/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 chmod a+r /etc/apt/keyrings/docker.gpg
@@ -10,14 +10,12 @@ echo \
   tee /etc/apt/sources.list.d/docker.list > /dev/null
 apt-get update
 
-# install containerd
-apt-get install -y containerd.io
+apt-get install -y containerd.io=$CONTAINERD_VERSION
 
-# install CNI-plugins
 mkdir -p /opt/cni/bin
-curl -fsSL https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz --output cni-plugins-linux-amd64-v1.3.0.tgz
-tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v1.3.0.tgz
-rm cni-plugins-linux-amd64-v1.3.0.tgz 
+curl -fsSL https://github.com/containernetworking/plugins/releases/download/v$CNI_PLUGINS_VERSION/cni-plugins-linux-amd64-v$CNI_PLUGINS_VERSION.tgz --output cni-plugins-linux-amd64-v$CNI_PLUGINS_VERSION.tgz
+tar Cxzvf /opt/cni/bin cni-plugins-linux-amd64-v$CNI_PLUGINS_VERSION.tgz
+rm cni-plugins-linux-amd64-v$CNI_PLUGINS_VERSION.tgz 
 
 ## set up bridge fwd
 install -m 644 /home/debian/kube-base-image/files/k8s-modules.conf /etc/modules-load.d/k8s-modules.conf
